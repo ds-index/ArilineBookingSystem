@@ -10,7 +10,7 @@
 
         public string? Destination { get; set; }
 
-        public DateTime DepartmentTime { get; set; }
+        public DateTime DepartureTime { get; set; }
 
         public DateTime ArrivalTime { get; set; }
     }

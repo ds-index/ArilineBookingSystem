@@ -2,7 +2,7 @@
 {
     public interface IFlightRepository
     {
-        Task<IReadOnlyList<Entities.Flight>> GetFlightsAsync();
+        Task<IEnumerable<Entities.Flight>> GetFlightsAsync();
 
         Task AddFlightAsync(Entities.Flight flight);
 

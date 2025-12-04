@@ -1,6 +1,6 @@
 ﻿namespace AirlineBookingSystem.Notification.Core.Repositories
 {
-    internal interface INotificationRepository
+    public interface INotificationRepository
     {
         Task LogNotificationAsync(Entities.Notification notification);
     }
