@@ -120,7 +120,7 @@ builder.Services.AddMassTransit(x =>
   }
 }
 ```
-Made with ArManDS with love.
+
 ---
 
 ## 📚 References
@@ -131,5 +131,3 @@ Made with ArManDS with love.
 * [Clean Architecture & DDD Principles](https://jeffreypalermo.com/blog/the-clean-architecture/)
 
 ---
-
-This README is ready for your **AirlineBookingSystem microservice project** and covers setup, architecture, and all key libraries/technologies.
