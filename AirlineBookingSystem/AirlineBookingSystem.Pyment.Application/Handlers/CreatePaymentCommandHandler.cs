@@ -1,5 +1,7 @@
-﻿using AirlineBookingSystem.Payment.Application.Commands;
+﻿using AirlineBookingSystem.BuildingBlocks.Contracts.EventBus.Messages;
+using AirlineBookingSystem.Payment.Application.Commands;
 using AirlineBookingSystem.Payment.Core.Repositories;
+using MassTransit;
 using MediatR;
 
 namespace AirlineBookingSystem.Payment.Application.Handlers
@@ -7,8 +9,13 @@ namespace AirlineBookingSystem.Payment.Application.Handlers
     public class CreatePaymentCommandHandler : IRequestHandler<CreatePaymentCommand, Guid>
     {
         private readonly IPaymentRepository _repo;
+        private readonly IPublishEndpoint _endPoint;
 
-        public  CreatePaymentCommandHandler(IPaymentRepository repo) => _repo = repo;
+        public  CreatePaymentCommandHandler(IPaymentRepository repo, IPublishEndpoint endpoint)
+        {
+            _repo = repo;
+            _endPoint = endpoint;
+        }
 
         public async Task<Guid> Handle(CreatePaymentCommand request, CancellationToken cancellationToken)
         {
@@ -22,6 +29,14 @@ namespace AirlineBookingSystem.Payment.Application.Handlers
             };
 
             await _repo.ProcessPaymentAsync(payment);
+
+            await _endPoint.Publish(new PaymentProcessedEvent
+                (
+                payment.Id,
+                payment.BookingId,
+                payment.Amount,
+                payment.PaymentDate
+                ));
 
             return payment.Id;
         }

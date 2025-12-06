@@ -1,8 +1,7 @@
 using AirlineBookingSystem.Flight.Application.Handlers;
 using AirlineBookingSystem.Flight.Core.Repositories;
+using AirlineBookingSystem.Flight.Infra.Data;
 using AirlineBookingSystem.Flight.Infra.Repositories;
-using Microsoft.Data.SqlClient;
-using System.Data;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -29,9 +28,7 @@ builder.Services.AddMediatR(cfg =>
 
 builder.Services.AddScoped<IFlightRepository, FlightRepository>();
 
-builder.Services.AddScoped<IDbConnection>(sp =>
-    new SqlConnection(builder.Configuration.GetConnectionString("DefaultConnection"))
-);
+builder.Services.AddScoped<IFlightContext,  FlightContext>();
 
 var app = builder.Build();
 
